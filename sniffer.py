@@ -1,3 +1,5 @@
+from scapy.all import sniff, rdpcap, IP, TCP, UDP, DNS, Raw
+from redaction import mask_ip, redact_sensitive
 import sys
 from scapy.all import sniff, IP, TCP, UDP, ICMP
 
@@ -65,4 +67,5 @@ def main():
     print("="*30)
 
 if __name__ == "__main__":
+
     main()

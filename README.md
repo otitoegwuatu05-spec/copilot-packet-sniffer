@@ -34,7 +34,7 @@ It captures network traffic from a local interface or a `.pcap` file and safely 
 git clone https://github.com/YOURUSERNAME/packet-sniffer-lab.git
 cd packet-sniffer-lab
 
-##AI Use Policy
+## AI Use Policy
 
 Use Copilot for: 
 

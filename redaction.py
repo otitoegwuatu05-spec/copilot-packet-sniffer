@@ -1,25 +1,11 @@
 import re
 
-def mask_ip(ip):
-    """Mask last octet of IPv4 address"""
-    parts = ip.split(".")
-    if len(parts) == 4:
-        return ".".join(parts[:3]) + ".xxx"
-    return ip
+def mask_ip(ip_address):
+    # Masks the last octet of an IP address
+    return re.sub(r'\.\d{1,3}$', '.xxx', ip_address)
 
-def redact_sensitive(data):
-    """Redact emails, tokens, passwords, cookies, and authorization headers"""
-    # Email redaction
-    data = re.sub(r'\S+@\S+', '[REDACTED_EMAIL]', data)
-    
-    # Password or token in query strings
-    data = re.sub(r'(password=)[^&\s]+', r'\1[REDACTED]', data)
-    data = re.sub(r'(token=)[^&\s]+', r'\1[REDACTED]', data)
-    
-    # Authorization headers
-    data = re.sub(r'Authorization:.*', 'Authorization: [REDACTED_AUTH]', data)
-    
-    # Cookies
-    data = re.sub(r'Cookie:.*', 'Cookie: [REDACTED_COOKIE]', data)
-    
-    return data
+def redact_sensitive(text):
+    # Redacts emails and common sensitive patterns
+    text = re.sub(r'[\w\.-]+@[\w\.-]+\.\w+', '[REDACTED_EMAIL]', text)
+    text = re.sub(r'(password|token|auth|cookie)=[^&\s]+', r'\1=[REDACTED]', text, flags=re.IGNORECASE)
+    return text
